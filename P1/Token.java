@@ -26,6 +26,13 @@ public class Token {
 		REAL	=19,
 		EOF		=20;
 
+	public Token() {
+		this.fila =0;
+		this.columna =0;
+		this.lexema="";
+		this.tipo=-1;
+	}
+ 
 	public Token(int f, int c, String lex, int t) {
 		this.fila = f;
 		this.columna = c;
@@ -37,61 +44,61 @@ public class Token {
 		switch(this.tipo) {
 			case 1:
 				return "(";
-				break;
+				
 			case 2:
 				return ")";
-				break;
+				
 			case 3:
 				return "* /";
-				break;
+				
 			case 4:
 				return "+ -";
-				break;
+				
 			case 5:
 				return ";";
-				break;
+				
 			case 6:
 				return ":";
-				break;
+				
 			case 7:
 				return ",";
-				break;
+				
 			case 8:
 				return "=";
-				break;
+				
 			case 9:
 				return "{";
-				break;
+				
 			case 10:
 				return "}";
-				break;
+				
 			case 11:
 				return "'class'";
-				break;
+				
 			case 12:
 				return "'public'";
-				break;
+				
 			case 13:
 				return "'private'";
-				break;
+				
 			case 14:
 				return "'float'";
-				break;
+				
 			case 15:
 				return "'int'";
-				break;
+				
 			case 16:
 				return "'return'";
-				break;
+				
 			case 17:	
 				return "numero entero";
-				break;
+				
 			case 18:
 				return "identificador";
-				break;
+				
 			case 19:
 				return "numero real";
-				break;
+				
 
 		}
 

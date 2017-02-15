@@ -1,0 +1,4 @@
+12345
+Esto es una linea
+Otra
+Caracter c a 2
