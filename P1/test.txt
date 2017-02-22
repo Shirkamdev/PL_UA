@@ -1,4 +1,6 @@
-12345
-Esto es una linea
-Otra
-Caracter c a 2
+12345.023 public
+private
+int
+2*3
+/*Comentario*/
+hola

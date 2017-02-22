@@ -98,11 +98,13 @@ public class Token {
 				
 			case 19:
 				return "numero real";
-				
+
+			case 20:
+				return "EOF";			
 
 		}
 
-		return "";
+		return "ERROR";
 	}
 
 }

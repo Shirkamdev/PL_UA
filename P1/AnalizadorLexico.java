@@ -19,7 +19,9 @@ public class AnalizadorLexico {
 
 
 	//Lee estado actual y el caracter que hemos leido
+	//y cambia el estado
 	private void delta(int c) {
+		//System.out.println("\tEstado anterior: "+this.estado);
 		switch(this.estado) {
 			//Estado base
 			case 0:
@@ -65,11 +67,20 @@ public class AnalizadorLexico {
 				else if(c == '}') {
 					this.estado = 22;
 				}
-				else if(c == ' ' || c == '\n' || c == '\t'){
+				else if((int)c == 32 || c == '\n' || c == '\t'){
 					this.estado = 0;
 				}
+				else if((int) c == 3) {
+					this.estado = 23;
+				}
 				else {
-					this.estado = -1;
+					if((int) c == 3) {
+						System.err.println("Error lexico: fin de fichero inesperado");
+					}
+					else {
+						System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+c+"' incorrecto");
+					}
+					System.exit(-1);
 				}
 				break;
 			//Estado digitos enteros
@@ -202,9 +213,16 @@ public class AnalizadorLexico {
 			case 22:
 				this.estado = -1;
 				break;
+			//Estado EOF
+			case 23:
+				this.estado = -1;
+			case 24:
+				this.estado = -1;
 			default:
 				this.estado = -1;
 		}
+
+		//System.out.println("\tEstado actual: "+this.estado);
 	}
 
 	/*
@@ -213,53 +231,200 @@ public class AnalizadorLexico {
 	public String lexema;
 	public int tipo;	
 	*/
-	public String siguienteToken() {
-		//TODO read here to return a token
-		Token t = new Token;
+	public Token siguienteToken() throws java.io.IOException{
+		//System.out.println("\tVamos leyendo por la posicion: " + this.pos);
+		Token t = new Token();
+		this.estado = 0; //Inicializamos la lectura
 
 		do {
+			
 			if(this.estado == 0) {
 				t.lexema = "";
 			}
-			else if(isFinal()) {
-				f.seek(this.pos);
+			else if(this.estado == -1) {
+				//ERROR here
+				System.err.println("ERROR: Estado invalido");
+				t.lexema = "";
 				break;
 			}
-			//TODO finish this
+			
+			//Leemos un caracter, comprobamos que no sea error,
+			//comprobamos el nuevo estado, y lo ponemos en el lexema si corresponde
+			
+			char c = siguienteChar();
+			//System.out.println("\t\tLeido char "+ c + "("+(int)c+")");
+			//Una vez no ha habido error, cambiamos nuestro estado, y comprobamos
+			//que no es final
 
+			if((int) c == 0) {
+				//Si hay un error en la lectura de fichero
+				this.estado = 24;
+			}
+			if((int) c == 3) {
+				//Si hemos llegado a EOF, hay que poner el tipo de lexema
+				//System.out.println("--Hemos leido un EOF --");
+				if(t.lexema != "") {
+					//System.out.println("Hay algo mas: " + t.lexema);
+					//System.out.println("Cursor en la pos: " + this.pos);
+					//Si ya hay algo más en el lexemac
+
+					//Puede llegar desde 1 2 4 7
+					switch(this.estado) {
+						case 1:
+							t.tipo = Token.ENTERO;
+							break;
+						case 2:
+							t.tipo = Token.ENTERO;
+							break;
+						case 4:
+							t.tipo = Token.REAL;
+							break;
+						case 7:
+							t.tipo = Token.ID;
+							break;
+					}
+
+					return t;
+
+				}
+				else {
+					//System.out.println("Fin de fichero");
+					t.lexema = "";
+					t.tipo = Token.EOF;
+					return t;
+				}
+			}
+
+			delta(c);
+			t.lexema += c;
+			//Si es final, salimos
+			if(isFinal(t)) {
+				break;
+			}
 
 		}while(true);
-		//TODO if token == PALABRA_RESERVADA
+		setTokenType(t);
 
-		return "";
+		int tipo = isReservedWord(t.lexema);
+		//System.out.println("El tipo de "+ t.lexema+" es: "+tipo);
+		if(tipo != -1) {
+			t.tipo = tipo;
+		}
+
+		return t;
 	}
 
-	private boolean isFinal() {
+	private void setTokenType(Token t) {
 		switch(this.estado) {
 			case 3:
-				this.pos--;
-				this.column--;
+				t.tipo = Token.ENTERO;
 				break;
 			case 5:
-				this.pos--;
-				this.column--;
+				t.tipo = Token.REAL;
 				break;
 			case 6:
-				this.pos--;
-				this.column--;
+				t.tipo = Token.ENTERO;
 				break;
 			case 8:
-				this.pos--;
-				this.column--;
+				t.tipo = Token.ID;
 				break;
 			case 9:
-				this.pos--;
-				this.column--;
-				break;
+				t.tipo = Token.MULOP;
+				break;				
 			case 13:
-				this.pos--;
-				this.column--;
+				t.tipo = Token.MULOP;
 				break;
+			case 14:
+				t.tipo = Token.PARI;
+				break;
+			case 15:
+				t.tipo = Token.ENTERO;
+				break;
+			case 16:
+				t.tipo = Token.ADDOP;
+				break;
+			case 17:
+				t.tipo = Token.PYC;
+				break;
+			case 18:
+				t.tipo = Token.DOSP;
+				break;
+			case 19:
+				t.tipo = Token.COMA;
+				break;
+			case 20:
+				t.tipo = Token.ASIG;
+				break;
+			case 21:
+				t.tipo = Token.LLAVEI;
+				break;
+			case 22:	
+				t.tipo = Token.LLAVED;
+				break;
+		}
+	}
+
+	private char siguienteChar() {
+		try {
+			//Vamos a leer un caracter del fichero
+			char mander = (char) f.readByte();
+			this.pos++;
+			return mander;
+		}
+		catch(java.io.EOFException ex) {
+			//Llegado a fin de fichero, devolvemos ETX (end of text)
+			return (char) 3;
+		}
+		catch(java.io.IOException ex) {
+			//Error en la lectura de fichero;
+			System.exit(-1);
+		}
+	}
+
+	private void backFileCursor(int n) {
+		try {
+			f.seek(this.pos-n);
+		}catch(java.io.IOException ex)
+		{}
+	}
+
+	private boolean isFinal(Token t) {
+		switch(this.estado) {
+			case 3:
+				backFileCursor(2);
+				this.pos-=2;
+				t.lexema = t.lexema.substring(0, t.lexema.length()-2);
+				return true;
+			case 5:
+				backFileCursor(1);
+				this.pos--;
+				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
+				return true;
+			case 6:
+				backFileCursor(1);
+				this.pos--;
+				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
+				return true;
+			case 8:
+				backFileCursor(1);
+				this.pos--;
+				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
+				return true;
+			case 9:
+				return true;
+			case 13:
+				backFileCursor(1);
+				this.pos--;
+				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
+				return true;
+			case 23:
+				return true;
+			default:
+				if(this.estado >= 14 && this.estado <= 24) {
+					//Estado final tambien
+					return true;
+				}
+				return false;
 		}
 	}
 
@@ -291,7 +456,7 @@ public class AnalizadorLexico {
 	}
 
 	private boolean isChar(int c) {
-		if((c >= 'a' && c <= 'z') || (c >= 'A' || c <= 'Z')) {
+		if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
 			return true;
 		}
 
