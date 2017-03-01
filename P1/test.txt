@@ -2,5 +2,6 @@
 private
 int
 2*3
+.
 /*Comentario*/
 hola

@@ -1,0 +1,17 @@
+*********************************************************
+Autocorrector plp1 (solo analizador léxico) 
+ Generando ficheros auxiliares... 
+*********************************************************
+ Compilando...
+*********************************************************
+
+*********************************************************
+ Ejecutando y comprobando salida a la vez...
+*********************************************************
+
+TODAS LAS PRUEBAS DEL AUTOCORRECTOR FUNCIONAN
+
+
+
+AVISO IMPORTANTE: este autocorrector solo prueba el analizador léxico y NO prueba todos los casos posibles
+

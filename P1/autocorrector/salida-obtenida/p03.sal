@@ -1,0 +1,148 @@
+Token: 2,0 class  -> (2,0): class es de tipo 10
+
+Token: 2,5 p03  -> (2,5): p03 es de tipo 17
+
+Token: 2,9 {  -> (2,9): { es de tipo 8
+
+Token: 4,2 public  -> (4,2): public es de tipo 11
+
+Token: 6,4 int  -> (6,4): int es de tipo 14
+
+Token: 6,7 etodo1  -> (6,7): etodo1 es de tipo 17
+
+Token: 6,13 (  -> (6,13): ( es de tipo 0
+
+Token: 6,14 float  -> (6,14): float es de tipo 13
+
+Token: 6,20 p1  -> (6,20): p1 es de tipo 17
+
+Token: 6,22 ,  -> (6,22): , es de tipo 6
+
+Token: 6,23 int  -> (6,23): int es de tipo 14
+
+Token: 6,27 p2  -> (6,27): p2 es de tipo 17
+
+Token: 6,29 ,  -> (6,29): , es de tipo 6
+
+Token: 6,30 float  -> (6,30): float es de tipo 13
+
+Token: 6,36 p3  -> (6,36): p3 es de tipo 17
+
+Token: 6,38 )  -> (6,38): ) es de tipo 16
+
+Token: 6,40 {  -> (6,40): { es de tipo 8
+
+Token: 7,6 a  -> (7,6): a es de tipo 17
+
+Token: 7,7 =  -> (7,7): = es de tipo 7
+
+Token: 7,9 a  -> (7,9): a es de tipo 17
+
+Token: 7,24 +  -> (7,24): + es de tipo 3
+
+Token: 7,44 1  -> (7,44): 1 es de tipo 16
+
+Token: 7,45 ;  -> (7,45): ; es de tipo 4
+
+Token: 8,4 }  -> (8,4): } es de tipo 9
+
+Token: 10,2 private  -> (10,2): private es de tipo 12
+
+Token: 10,11 float  -> (10,11): float es de tipo 13
+
+Token: 10,17 metodo2  -> (10,17): metodo2 es de tipo 17
+
+Token: 10,24 (  -> (10,24): ( es de tipo 0
+
+Token: 10,25 int  -> (10,25): int es de tipo 14
+
+Token: 10,29 pp1  -> (10,29): pp1 es de tipo 17
+
+Token: 10,32 )  -> (10,32): ) es de tipo 16
+
+Token: 10,33 ;  -> (10,33): ; es de tipo 4
+
+Token: 11,3 int  -> (11,3): int es de tipo 14
+
+Token: 11,6 metodo3  -> (11,6): metodo3 es de tipo 17
+
+Token: 11,13 (  -> (11,13): ( es de tipo 0
+
+Token: 11,14 float  -> (11,14): float es de tipo 13
+
+Token: 11,20 f  -> (11,20): f es de tipo 17
+
+Token: 11,21 ,  -> (11,21): , es de tipo 6
+
+Token: 11,22 int  -> (11,22): int es de tipo 14
+
+Token: 11,26 i  -> (11,26): i es de tipo 17
+
+Token: 11,27 )  -> (11,27): ) es de tipo 16
+
+Token: 11,29 {  -> (11,29): { es de tipo 8
+
+Token: 12,5 int  -> (12,5): int es de tipo 14
+
+Token: 12,8 j  -> (12,8): j es de tipo 17
+
+Token: 12,9 ;  -> (12,9): ; es de tipo 4
+
+Token: 14,5 j  -> (14,5): j es de tipo 17
+
+Token: 14,7 i  -> (14,7): i es de tipo 17
+
+Token: 14,8 *  -> (14,8): * es de tipo 2
+
+Token: 14,9 7  -> (14,9): 7 es de tipo 16
+
+Token: 14,10 +  -> (14,10): + es de tipo 3
+
+Token: 14,11 2  -> (14,11): 2 es de tipo 16
+
+Token: 14,12 /  -> (14,12): / es de tipo 2
+
+Token: 14,13 5  -> (14,13): 5 es de tipo 16
+
+Token: 14,14 ;  -> (14,14): ; es de tipo 4
+
+Token: 15,5 f  -> (15,5): f es de tipo 17
+
+Token: 15,6 =  -> (15,6): = es de tipo 7
+
+Token: 15,8 123.45  -> (15,8): 123.45 es de tipo 18
+
+Token: 15,15 +  -> (15,15): + es de tipo 3
+
+Token: 15,17 1.233444  -> (15,17): 1.233444 es de tipo 18
+
+Token: 15,26 -  -> (15,26): - es de tipo 3
+
+Token: 15,28 12345.6  -> (15,28): 12345.6 es de tipo 18
+
+Token: 15,35 ;  -> (15,35): ; es de tipo 4
+
+Token: 17,5 return  -> (17,5): return es de tipo 15
+
+Token: 17,11 *  -> (17,11): * es de tipo 2
+
+Token: 17,12 j  -> (17,12): j es de tipo 17
+
+Token: 17,13 +  -> (17,13): + es de tipo 3
+
+Token: 17,14 (  -> (17,14): ( es de tipo 0
+
+Token: 17,15 f  -> (17,15): f es de tipo 17
+
+Token: 17,16 /  -> (17,16): / es de tipo 2
+
+Token: 17,17 7.5  -> (17,17): 7.5 es de tipo 18
+
+Token: 17,20 )  -> (17,20): ) es de tipo 16
+
+Token: 17,21 ;  -> (17,21): ; es de tipo 4
+
+Token: 18,3 }  -> (18,3): } es de tipo 9
+
+Token: 19,0 }  -> (19,0): } es de tipo 9
+
