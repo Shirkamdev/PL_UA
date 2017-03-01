@@ -15,11 +15,15 @@ public class Main {
 
 			do {
 				t = al.siguienteToken();
-				System.out.println(i + ":\t" + t.toString() + ":\t"+t.lexema);
+				System.out.print(i + ":\t" + toString(t));
 				i++;
 			} while(t.lexema != "");
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());
 		}
 	}
+
+	public static String toString(Token t){
+		return "("+t.fila+","+t.columna+"): "+t.lexema+" es de tipo "+t.tipo+'\n'; 
+    }
 }

@@ -1,10 +1,14 @@
-Token: 2,0 class  -> (2,0): class es de tipo 10
+Token: 2,1 class  -> (2,1): class es de tipo 10
 
-Token: 2,5 p02  -> (2,5): p02 es de tipo 17
+Token: 2,7 p02  -> (2,7): p02 es de tipo 17
 
-Token: 2,9 {  -> (2,9): { es de tipo 8
+Token: 2,12 {  -> (2,12): { es de tipo 8
 
 Token: 4,1 public  -> (4,1): public es de tipo 11
 
+Token: 4,9 :  -> (4,9): : es de tipo 5
+
 Token: 6,4 float  -> (6,4): float es de tipo 13
+
+Token: 6,11 9  -> (6,11): 9 es de tipo 16
 

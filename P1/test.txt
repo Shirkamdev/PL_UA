@@ -1,7 +1,14 @@
-12345.023 public
-private
-int
-2*3
-.
-/*Comentario*/
-hola
+public class C1 /*{
+	public C1() {
+		int a = 2;
+	}
+
+	private void m1() {
+		float a1;
+	}
+
+
+	public Foo() {
+		return;
+	}
+}*/

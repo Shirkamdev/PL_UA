@@ -1,54 +1,58 @@
-Token: 2,0 class  -> (2,0): class es de tipo 10
+Token: 2,1 class  -> (2,1): class es de tipo 10
 
-Token: 2,5 p06  -> (2,5): p06 es de tipo 17
+Token: 2,7 p06  -> (2,7): p06 es de tipo 17
 
-Token: 2,9 {  -> (2,9): { es de tipo 8
+Token: 2,12 {  -> (2,12): { es de tipo 8
 
 Token: 3,2 private  -> (3,2): private es de tipo 12
 
+Token: 3,10 :  -> (3,10): : es de tipo 5
+
 Token: 4,4 class  -> (4,4): class es de tipo 10
 
-Token: 4,9 p0601  -> (4,9): p0601 es de tipo 17
+Token: 4,11 p0601  -> (4,11): p0601 es de tipo 17
 
-Token: 4,15 {  -> (4,15): { es de tipo 8
+Token: 4,18 {  -> (4,18): { es de tipo 8
 
-Token: 4,16 }  -> (4,16): } es de tipo 9
+Token: 4,19 }  -> (4,19): } es de tipo 9
 
 Token: 5,4 int  -> (5,4): int es de tipo 14
 
-Token: 5,7 metodo  -> (5,7): metodo es de tipo 17
+Token: 5,9 metodo  -> (5,9): metodo es de tipo 17
 
-Token: 5,13 (  -> (5,13): ( es de tipo 0
+Token: 5,16 (  -> (5,16): ( es de tipo 0
 
-Token: 5,14 int  -> (5,14): int es de tipo 14
+Token: 5,17 int  -> (5,17): int es de tipo 14
 
-Token: 5,18 a  -> (5,18): a es de tipo 17
+Token: 5,22 a  -> (5,22): a es de tipo 17
 
-Token: 5,19 )  -> (5,19): ) es de tipo 16
+Token: 5,24 )  -> (5,24): ) es de tipo 16
 
-Token: 5,21 {  -> (5,21): { es de tipo 8
+Token: 5,26 {  -> (5,26): { es de tipo 8
 
 Token: 6,7 int  -> (6,7): int es de tipo 14
 
-Token: 6,10 b  -> (6,10): b es de tipo 17
+Token: 6,12 b  -> (6,12): b es de tipo 17
 
-Token: 6,11 ;  -> (6,11): ; es de tipo 4
+Token: 6,14 ;  -> (6,14): ; es de tipo 4
 
 Token: 8,7 b  -> (8,7): b es de tipo 17
 
-Token: 8,9 a  -> (8,9): a es de tipo 17
+Token: 8,10 =  -> (8,10): = es de tipo 7
 
-Token: 8,10 +  -> (8,10): + es de tipo 3
+Token: 8,12 a  -> (8,12): a es de tipo 17
 
-Token: 8,11 3  -> (8,11): 3 es de tipo 16
+Token: 8,14 +  -> (8,14): + es de tipo 3
+
+Token: 8,15 3  -> (8,15): 3 es de tipo 16
 
 Token: 10,7 return  -> (10,7): return es de tipo 15
 
-Token: 10,13 b  -> (10,13): b es de tipo 17
+Token: 10,15 b  -> (10,15): b es de tipo 17
 
-Token: 10,14 ;  -> (10,14): ; es de tipo 4
+Token: 10,17 ;  -> (10,17): ; es de tipo 4
 
 Token: 11,4 }  -> (11,4): } es de tipo 9
 
-Token: 12,0 }  -> (12,0): } es de tipo 9
+Token: 12,1 }  -> (12,1): } es de tipo 9
 

@@ -6,14 +6,17 @@ public class AnalizadorLexico {
 
 	//Para saber posicion de tokens
 	private int row, column;
+	private int lastRow;
 	//Para saber la posicion en el fichero
 	private long pos;
+	//Para saber la ultima columna de la anterior linea
+	private int lastColumn;
 
 	public AnalizadorLexico(RandomAccessFile f) {
 		this.f = f;
 		this.estado = 0;
 		this.row=1;
-		this.column=1;
+		this.column=0;
 		this.pos=0;
 	}
 
@@ -245,8 +248,12 @@ public class AnalizadorLexico {
 			
 			if(this.estado == 0) {
 				t.lexema = "";
-				t.fila = this.column;
-				t.columna = this.row;
+				t.fila = this.row;
+				if(this.column == 0) {
+					t.columna = this.column+1;
+				} else {
+					t.columna = this.column;	
+				}
 			}
 			else if(this.estado == -1) {
 				//ERROR here
@@ -304,21 +311,13 @@ public class AnalizadorLexico {
 
 			delta(c);
 
-			//Actualizamos filas y columnas aqui para que cuente bien
-			if(c == '\n') {
-				//System.out.println("Linea nueva en pos: "+this.pos);
-				this.row = 0;
-				this.column++;
-				this.pos++;
-			}
-			else {
-				this.row++;	
-			}
-
-
 			t.lexema += c;
 			//Si es final, salimos
 			if(isFinal(t)) {
+				if(c == '\n') {
+					this.row--;
+					this.column=this.lastColumn;
+				}
 				break;
 			}
 
@@ -389,6 +388,14 @@ public class AnalizadorLexico {
 			//Vamos a leer un caracter del fichero
 			char mander = (char) f.readByte();
 			this.pos++;
+			if(mander == '\n') {
+				this.lastColumn=this.column;
+				this.row++;
+				this.column=0;
+			}
+			else {
+				this.column++;
+			}
 			return mander;
 		}
 		catch(java.io.EOFException ex) {
@@ -416,24 +423,20 @@ public class AnalizadorLexico {
 				backFileCursor(2);
 				this.pos-=2;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-2);
-				this.row--;
 				return true;
 			case 5:
 				backFileCursor(1);
 				this.pos--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
-				this.row --;
 				return true;
 			case 6:
 				backFileCursor(1);
 				this.pos--;
-				this.row --;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 8:
 				backFileCursor(1);
 				this.pos--;
-				this.row--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 9:
@@ -441,7 +444,6 @@ public class AnalizadorLexico {
 			case 13:
 				backFileCursor(1);
 				this.pos--;
-				this.row--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 23:

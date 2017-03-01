@@ -6,14 +6,17 @@ public class AnalizadorLexico {
 
 	//Para saber posicion de tokens
 	private int row, column;
+	private int lastRow;
 	//Para saber la posicion en el fichero
 	private long pos;
+	//Para saber la ultima columna de la anterior linea
+	private int lastColumn;
 
 	public AnalizadorLexico(RandomAccessFile f) {
 		this.f = f;
 		this.estado = 0;
 		this.row=1;
-		this.column=1;
+		this.column=0;
 		this.pos=0;
 	}
 
@@ -242,23 +245,10 @@ public class AnalizadorLexico {
 		this.estado = 0; //Inicializamos la lectura
 
 		do {
-			
-			if(this.estado == 0) {
-				t.lexema = "";
-				t.fila = this.column;
-				t.columna = this.row;
-			}
-			else if(this.estado == -1) {
-				//ERROR here
-				System.err.println("ERROR: Estado invalido");
-				t.lexema = "";
-				break;
-			}
-			
 			//Leemos un caracter, comprobamos que no sea error,
 			//comprobamos el nuevo estado, y lo ponemos en el lexema si corresponde
-			
 			char c = siguienteChar();
+			
 			//System.out.println("\t\tLeido char "+ c + "("+(int)c+")");
 			//Una vez no ha habido error, cambiamos nuestro estado, y comprobamos
 			//que no es final
@@ -301,24 +291,30 @@ public class AnalizadorLexico {
 					return t;
 				}
 			}
+			
+			if(this.estado == 0) {
+				t.lexema = "";
+				t.fila = this.row;
+				t.columna = this.column;	
+
+				System.out.println("Nuevo token en ("+this.row+","+this.column+")");
+			}
+			else if(this.estado == -1) {
+				//ERROR here
+				System.err.println("ERROR: Estado invalido");
+				t.lexema = "";
+				break;
+			}
 
 			delta(c);
-
-			//Actualizamos filas y columnas aqui para que cuente bien
-			if(c == '\n') {
-				//System.out.println("Linea nueva en pos: "+this.pos);
-				this.row = 0;
-				this.column++;
-				this.pos++;
-			}
-			else {
-				this.row++;	
-			}
-
 
 			t.lexema += c;
 			//Si es final, salimos
 			if(isFinal(t)) {
+				if(c == '\n') {
+					this.row--;
+					this.column=this.lastColumn;
+				}
 				break;
 			}
 
@@ -358,7 +354,7 @@ public class AnalizadorLexico {
 				t.tipo = Token.PARI;
 				break;
 			case 15:
-				t.tipo = Token.ENTERO;
+				t.tipo = Token.PARD;
 				break;
 			case 16:
 				t.tipo = Token.ADDOP;
@@ -388,7 +384,20 @@ public class AnalizadorLexico {
 		try {
 			//Vamos a leer un caracter del fichero
 			char mander = (char) f.readByte();
+			
+
 			this.pos++;
+			if(mander == '\n') {
+				this.lastColumn=this.column;
+				this.row++;
+				this.column=0;
+			}
+			else {
+				this.column++;
+			}
+
+			System.out.println("\tLeido char "+mander+" en ("+this.row+","+this.column+")->"+this.pos);
+
 			return mander;
 		}
 		catch(java.io.EOFException ex) {
@@ -415,25 +424,24 @@ public class AnalizadorLexico {
 			case 3:
 				backFileCursor(2);
 				this.pos-=2;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-2);
-				this.row--;
 				return true;
 			case 5:
 				backFileCursor(1);
 				this.pos--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
-				this.row --;
 				return true;
 			case 6:
 				backFileCursor(1);
 				this.pos--;
-				this.row --;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 8:
+				System.out.println("\t\tIdentificador en pos "+this.pos+" retrocediendo 1 posicion");
+
 				backFileCursor(1);
 				this.pos--;
-				this.row--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 9:
@@ -441,10 +449,7 @@ public class AnalizadorLexico {
 			case 13:
 				backFileCursor(1);
 				this.pos--;
-				this.row--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
-				return true;
-			case 23:
 				return true;
 			default:
 				if(this.estado >= 14 && this.estado <= 24) {
