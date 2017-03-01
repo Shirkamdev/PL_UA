@@ -1,14 +1,10 @@
-public class C1 /*{
-	public C1() {
-		int a = 2;
-	}
-
-	private void m1() {
-		float a1;
-	}
-
-
-	public Foo() {
-		return;
-	}
-}*/
+class A {
+    public:
+      int f1(int n,float s);
+      float ff1(float r) {
+        return 2+r;
+      }
+    private:
+      class B {
+      }
+}

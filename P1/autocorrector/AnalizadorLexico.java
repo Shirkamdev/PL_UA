@@ -78,12 +78,8 @@ public class AnalizadorLexico {
 					this.estado = 23;
 				}
 				else {
-					if((int) c == 3) {
-						System.err.println("Error lexico: fin de fichero inesperado");
-					}
-					else {
-						System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+(char)c+"' incorrecto");
-					}
+					
+					System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+(char)c+"' incorrecto");
 					System.exit(-1);
 				}
 				break;
@@ -245,27 +241,10 @@ public class AnalizadorLexico {
 		this.estado = 0; //Inicializamos la lectura
 
 		do {
-			
-			if(this.estado == 0) {
-				t.lexema = "";
-				t.fila = this.row;
-				if(this.column == 0) {
-					t.columna = this.column+1;
-				} else {
-					t.columna = this.column;	
-				}
-			}
-			else if(this.estado == -1) {
-				//ERROR here
-				System.err.println("ERROR: Estado invalido");
-				t.lexema = "";
-				break;
-			}
-			
 			//Leemos un caracter, comprobamos que no sea error,
 			//comprobamos el nuevo estado, y lo ponemos en el lexema si corresponde
-			
 			char c = siguienteChar();
+			
 			//System.out.println("\t\tLeido char "+ c + "("+(int)c+")");
 			//Una vez no ha habido error, cambiamos nuestro estado, y comprobamos
 			//que no es final
@@ -278,6 +257,7 @@ public class AnalizadorLexico {
 				//Si hemos llegado a EOF, hay que poner el tipo de lexema
 				//System.out.println("--Hemos leido un EOF --");
 				if(t.lexema != "") {
+					//System.out.println("El lexema "+t.lexema+" no esta vacio");
 					//System.out.println("Hay algo mas: " + t.lexema);
 					//System.out.println("Cursor en la pos: " + this.pos);
 					//Si ya hay algo más en el lexemac
@@ -296,6 +276,9 @@ public class AnalizadorLexico {
 						case 7:
 							t.tipo = Token.ID;
 							break;
+						default:
+							t.lexema = "";
+							t.tipo = Token.EOF;
 					}
 
 					return t;
@@ -307,6 +290,20 @@ public class AnalizadorLexico {
 					t.tipo = Token.EOF;
 					return t;
 				}
+			}
+			
+			if(this.estado == 0) {
+				t.lexema = "";
+				t.fila = this.row;
+				t.columna = this.column;	
+
+				//System.out.println("Nuevo token en ("+this.row+","+this.column+")");
+			}
+			else if(this.estado == -1) {
+				//ERROR here
+				System.err.println("ERROR: Estado invalido");
+				t.lexema = "";
+				break;
 			}
 
 			delta(c);
@@ -357,7 +354,7 @@ public class AnalizadorLexico {
 				t.tipo = Token.PARI;
 				break;
 			case 15:
-				t.tipo = Token.ENTERO;
+				t.tipo = Token.PARD;
 				break;
 			case 16:
 				t.tipo = Token.ADDOP;
@@ -387,6 +384,8 @@ public class AnalizadorLexico {
 		try {
 			//Vamos a leer un caracter del fichero
 			char mander = (char) f.readByte();
+			
+
 			this.pos++;
 			if(mander == '\n') {
 				this.lastColumn=this.column;
@@ -396,9 +395,13 @@ public class AnalizadorLexico {
 			else {
 				this.column++;
 			}
+
+			//System.out.println("\tLeido char "+mander+" en ("+this.row+","+this.column+")->"+this.pos);
+
 			return mander;
 		}
 		catch(java.io.EOFException ex) {
+			//System.out.println("Hemos leido EOF");
 			//Llegado a fin de fichero, devolvemos ETX (end of text)
 			return (char) 3;
 		}
@@ -422,21 +425,27 @@ public class AnalizadorLexico {
 			case 3:
 				backFileCursor(2);
 				this.pos-=2;
+				this.column-=2;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-2);
 				return true;
 			case 5:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 6:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 8:
+				//System.out.println("\t\tIdentificador en pos "+this.pos+" retrocediendo 1 posicion");
+
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 9:
@@ -444,9 +453,8 @@ public class AnalizadorLexico {
 			case 13:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
-				return true;
-			case 23:
 				return true;
 			default:
 				if(this.estado >= 14 && this.estado <= 24) {

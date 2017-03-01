@@ -78,12 +78,8 @@ public class AnalizadorLexico {
 					this.estado = 23;
 				}
 				else {
-					if((int) c == 3) {
-						System.err.println("Error lexico: fin de fichero inesperado");
-					}
-					else {
-						System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+(char)c+"' incorrecto");
-					}
+					
+					System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+(char)c+"' incorrecto");
 					System.exit(-1);
 				}
 				break;
@@ -261,6 +257,7 @@ public class AnalizadorLexico {
 				//Si hemos llegado a EOF, hay que poner el tipo de lexema
 				//System.out.println("--Hemos leido un EOF --");
 				if(t.lexema != "") {
+					//System.out.println("El lexema "+t.lexema+" no esta vacio");
 					//System.out.println("Hay algo mas: " + t.lexema);
 					//System.out.println("Cursor en la pos: " + this.pos);
 					//Si ya hay algo más en el lexemac
@@ -279,6 +276,9 @@ public class AnalizadorLexico {
 						case 7:
 							t.tipo = Token.ID;
 							break;
+						default:
+							t.lexema = "";
+							t.tipo = Token.EOF;
 					}
 
 					return t;
@@ -297,7 +297,7 @@ public class AnalizadorLexico {
 				t.fila = this.row;
 				t.columna = this.column;	
 
-				System.out.println("Nuevo token en ("+this.row+","+this.column+")");
+				//System.out.println("Nuevo token en ("+this.row+","+this.column+")");
 			}
 			else if(this.estado == -1) {
 				//ERROR here
@@ -396,11 +396,12 @@ public class AnalizadorLexico {
 				this.column++;
 			}
 
-			System.out.println("\tLeido char "+mander+" en ("+this.row+","+this.column+")->"+this.pos);
+			//System.out.println("\tLeido char "+mander+" en ("+this.row+","+this.column+")->"+this.pos);
 
 			return mander;
 		}
 		catch(java.io.EOFException ex) {
+			//System.out.println("Hemos leido EOF");
 			//Llegado a fin de fichero, devolvemos ETX (end of text)
 			return (char) 3;
 		}
@@ -424,24 +425,27 @@ public class AnalizadorLexico {
 			case 3:
 				backFileCursor(2);
 				this.pos-=2;
-				this.column--;
+				this.column-=2;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-2);
 				return true;
 			case 5:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 6:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 8:
-				System.out.println("\t\tIdentificador en pos "+this.pos+" retrocediendo 1 posicion");
+				//System.out.println("\t\tIdentificador en pos "+this.pos+" retrocediendo 1 posicion");
 
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			case 9:
@@ -449,6 +453,7 @@ public class AnalizadorLexico {
 			case 13:
 				backFileCursor(1);
 				this.pos--;
+				this.column--;
 				t.lexema = t.lexema.substring(0, t.lexema.length()-1);
 				return true;
 			default:
