@@ -1,10 +1,6 @@
-class A {
-    public:
-      int f1(int n,float s);
-      float ff1(float r) {
-        return 2+r;
-      }
-    private:
-      class B {
-      }
-}
+
+class p02 {
+
+ public : 
+
+    float 9.aaa   /* error sintactico en '9', no lexico en '.' */
