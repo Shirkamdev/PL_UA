@@ -79,7 +79,7 @@ public class AnalizadorLexico {
 				}
 				else {
 					
-					System.err.println("Error lexico ("+this.row+","+this.column+"): caracter '"+(char)c+"' incorrecto");
+					System.err.println("Error lexico ("+this.row+","+this.column+"): caracter "+(char)c+"' incorrecto");
 					System.exit(-1);
 				}
 				break;
@@ -172,6 +172,10 @@ public class AnalizadorLexico {
 				}
 				else if(c == '/') {
 					this.estado = 0;
+				}
+				else if((int) c == 3) {
+					System.err.println("Error lexico: fin de fichero inesperado");
+					System.exit(-1);
 				}
 				else {
 					this.estado = 11;
@@ -499,4 +503,5 @@ public class AnalizadorLexico {
 
 		return false;
 	}
+
 }

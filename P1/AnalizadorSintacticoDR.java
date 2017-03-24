@@ -23,20 +23,6 @@ public class AnalizadorSintacticoDR {
 	//class, id, llavei, llaved, public, dosp, private, pari, pard, pyc, 
 	//coma, int, float, asig, return, addop, mulop, real, entero
 
-	/*
-	public final void A()
-	{
-		if (token.tipo == Token.TRES || token.tipo == Token.CUATRO) {
-			B();
-			emparejar(Token.UNO);
-		}
-		else if (token.tipo == Token.DOS) {
-			emparejar(Token.DOS);
-		}
-		else errorSintaxis(Token.TRES,Token.CUATRO,Token.DOS);
-	}
-	*/
-
 	public void S() {
 		//Una condicion por cada conjunto de prediccion
 		//System.err.println("\tEntramos en S");
@@ -52,10 +38,9 @@ public class AnalizadorSintacticoDR {
 			t1.tipo = Token.CLASS;
 
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: encontrado fin de fichero, esperaba "+t1.toString());
-				System.exit(-1);
+				imprimirErrorSintacticoFinFicheroInesperado(t1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna+"): encontrado ’"+this.t.lexema+"’, esperaba "+t1.toString());
+			imprimirErrorSintactico(t1);
 			System.exit(-1);
 		}
 	}	
@@ -77,10 +62,9 @@ public class AnalizadorSintacticoDR {
 			Token t1 = new Token();
 			t1.tipo = Token.CLASS;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: encontrado fin de fichero, esperaba "+t1.toString());
-				System.exit(-1);
+				imprimirErrorSintacticoFinFicheroInesperado(t1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna+"): encontrado ’"+this.t.lexema+"’, esperaba "+t1.toString());
+			imprimirErrorSintactico(t1);
 			System.exit(-1);
 		}
 	}
@@ -109,16 +93,10 @@ public class AnalizadorSintacticoDR {
 			Token t3 = new Token();
 			t3.tipo = Token.PRIVATE;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: encontrado fin de fichero, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1,t2,t3);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+			imprimirErrorSintactico(t1,t2,t3);
 			System.exit(-1);
 		}
 	}
@@ -143,16 +121,10 @@ public class AnalizadorSintacticoDR {
 			Token t2 = new Token();
 			t2.tipo = Token.PRIVATE;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString());
+			imprimirErrorSintactico(t1, t2);
 			System.exit(-1);
 		}
 	}
@@ -184,22 +156,10 @@ public class AnalizadorSintacticoDR {
 			Token t5 = new Token();
 			t5.tipo = Token.FLOAT;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2,t3,t4,t5);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+			imprimirErrorSintactico(t1, t2,t3,t4,t5);
 			System.exit(-1);
 		}
 		
@@ -234,18 +194,10 @@ public class AnalizadorSintacticoDR {
 			Token t3 = new Token();
 			t3.tipo = Token.FLOAT;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2,t3);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+			imprimirErrorSintactico(t1, t2,t3);
 			System.exit(-1);
 		}
 	}
@@ -270,16 +222,9 @@ public class AnalizadorSintacticoDR {
 			Token t2 = new Token();
 			t2.tipo = Token.PYC;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString());
-				System.exit(-1);
+				imprimirErrorSintacticoFinFicheroInesperado(t1,t2);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString());
+			imprimirErrorSintactico(t1,t2);
 			System.exit(-1);
 		}
 	}
@@ -305,16 +250,10 @@ public class AnalizadorSintacticoDR {
 			Token t2 = new Token();
 			t2.tipo = Token.COMA;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString());
+			imprimirErrorSintactico(t1, t2);
 			System.exit(-1);
 		}
 	}
@@ -339,16 +278,10 @@ public class AnalizadorSintacticoDR {
 			Token t2 = new Token();
 			t2.tipo = Token.FLOAT;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString() 
-				+" "+t2.toString());
+			imprimirErrorSintactico(t1, t2);
 			System.exit(-1);
 		}
 	}
@@ -369,14 +302,10 @@ public class AnalizadorSintacticoDR {
 			Token t1 = new Token();
 			t1.tipo = Token.LLAVEI;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString());
+			imprimirErrorSintactico(t1);
 			System.exit(-1);
 		}
 	}
@@ -399,32 +328,22 @@ public class AnalizadorSintacticoDR {
 			//class, id, llavei, llaved, public, dosp, private, pari, pard, pyc, 
 			//coma, int, float, asig, return, addop, mulop, real, entero
 			Token t1 = new Token();
-			t1.tipo = Token.CLASS;
+			t1.tipo = Token.ID;
 			Token t2 = new Token();
-			t2.tipo = Token.ID;
+			t2.tipo = Token.LLAVEI;
 			Token t3 = new Token();
-			t3.tipo = Token.LLAVEI;
+			t3.tipo = Token.LLAVED;
 			Token t4 = new Token();
 			t4.tipo = Token.INT;
 			Token t5 = new Token();
 			t5.tipo = Token.FLOAT;
+			Token t6 = new Token();
+			t6.tipo = Token.RETURN;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4, t5, t6);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+			imprimirErrorSintactico(t1, t2, t3, t4, t5, t6);
 			System.exit(-1);
 		}		
 	}
@@ -467,22 +386,10 @@ public class AnalizadorSintacticoDR {
 			Token t5 = new Token();
 			t5.tipo = Token.RETURN;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4, t5);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString()
-				+" "+t5.toString());
+			imprimirErrorSintactico(t1, t2, t3, t4, t5);
 			System.exit(-1);
 		}
 	}
@@ -509,20 +416,10 @@ public class AnalizadorSintacticoDR {
 			Token t4 = new Token();
 			t4.tipo = Token.ENTERO;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+			imprimirErrorSintactico(t1, t2, t3, t4);
 			System.exit(-1);
 		}
 	}
@@ -551,18 +448,10 @@ public class AnalizadorSintacticoDR {
 			Token t3 = new Token();
 			t3.tipo = Token.ADDOP;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString());
+			imprimirErrorSintactico(t1, t2, t3);
 			System.exit(-1);
 		}
 	}
@@ -589,20 +478,10 @@ public class AnalizadorSintacticoDR {
 			Token t4 = new Token();
 			t4.tipo = Token.ENTERO;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+			imprimirErrorSintactico(t1, t2, t3, t4);
 			System.exit(-1);
 		}
 	}
@@ -632,20 +511,10 @@ public class AnalizadorSintacticoDR {
 			Token t4 = new Token();
 			t4.tipo = Token.MULOP;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+			imprimirErrorSintactico(t1, t2, t3, t4);
 			System.exit(-1);
 		}
 	}
@@ -684,20 +553,10 @@ public class AnalizadorSintacticoDR {
 			Token t4 = new Token();
 			t4.tipo = Token.ENTERO;
 			if(this.t.tipo == Token.EOF) {
-				System.err.println("Error sintactico: "
-				+"encontrado fin de fichero,"
-				+" esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+				imprimirErrorSintacticoFinFicheroInesperado(t1, t2, t3, t4);
 				System.exit(-1);
 			}
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna
-				+"): encontrado ’"+this.t.lexema
-				+"’, esperaba "+t1.toString()
-				+" "+t2.toString()
-				+" "+t3.toString()
-				+" "+t4.toString());
+			imprimirErrorSintactico(t1.toString(), t2.toString(),t3.toString(), t4.toString());
 			System.exit(-1);
 		}
 	}
@@ -711,7 +570,7 @@ public class AnalizadorSintacticoDR {
 			}
 		}
 		else {
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna+"): encontrado ’"+this.t.lexema+"’, esperaba eof");
+			imprimirErrorSintactico("eof");
 			System.exit(-1);
 		}
 	}
@@ -726,7 +585,7 @@ public class AnalizadorSintacticoDR {
 		else {
 			Token t2 = new Token();
 			t2.tipo = tokEsperado;
-			System.err.println("Error sintactico ("+this.t.fila+","+this.t.columna+"): encontrado ’"+this.t.lexema+"’, esperaba "+ t2.toString());
+			imprimirErrorSintactico(t2);
 			System.exit(-1);
 		}
 	}
@@ -742,5 +601,43 @@ public class AnalizadorSintacticoDR {
 
 	private void imprimirReglas() {
 		System.out.println(this.str);
+	}
+
+	private void imprimirErrorSintactico(Token... tokens) {
+		System.err.print("Error sintactico ("+this.t.fila+","+this.t.columna
+				+"): encontrado '"+this.t.lexema
+				+"', esperaba");
+
+		for(Token s: tokens) {
+			System.err.print(" "+s.toString());
+		}
+		System.err.println();
+	}
+
+	private void imprimirErrorSintacticoFinFicheroInesperado(Token... tokens) {
+
+		System.err.print("Error sintactico: entoncrado fin de fichero, esperaba");
+		for(Token s: tokens) {
+			System.err.print(" "+s.toString());
+		}
+		System.err.println();
+	}
+
+	private void imprimirErrorSintactico(String... tokens) {
+
+		System.err.print("Error sintactico: entoncrado fin de fichero, esperaba");
+		for(String s: tokens) {
+			System.err.print(" "+s);
+		}
+		System.err.println();
+	}
+
+	private void imprimirErrorSintacticoFinFicheroInesperado(String... tokens) {
+
+		System.err.print("Error sintactico: entoncrado fin de fichero, esperaba");
+		for(String s: tokens) {
+			System.err.print(" "+s);
+		}
+		System.err.println();
 	}
 }

@@ -1,0 +1,15 @@
+class A {
+    public:
+        int f1(int n,float s);
+        float ff1(float r) {
+            r=2;
+        }
+
+        /*
+        comentario
+        */
+
+        private:
+            class B {
+            }
+}
